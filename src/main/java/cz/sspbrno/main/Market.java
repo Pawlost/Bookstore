@@ -25,10 +25,10 @@ public class Market implements Economical {
         }
     }
 
-    public void addAuthor(){
-        Author author = new Author();
+    private void addAuthor(){
+        Author author = new Author("Pawel", "Baldakus", 10);
         authors.add(author);
-        author.releaseRandomBook();
+        author.releaseRandomBook(this);
     }
 
     public boolean isBookOnMarket(String name){

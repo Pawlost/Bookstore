@@ -14,11 +14,17 @@ public class Author extends Person {
         super(firstName, lastName, age);
     }
 
-    public  ReadableContent releaseRandomBook(Market market){
-
+    public ReadableContent releaseRandomBook(Market market){
+            String bookName = BOOK_NAMES[random.nextInt(BOOK_NAMES.length)];
+            if(!market.isBookOnMarket(bookName)) {
+                Genre genre = Genre.values()[random.nextInt(Genre.values().length)];
+                return new Book(bookName, genre, random.nextInt(Data.MAX_BOOK_PAGES) + 1,this, random.nextBoolean());
+            }
+        return null;
     }
 
     public ReadableContent releaseBook(String name, Genre genre) {
-
+        
+        return null;
     }
 }
