@@ -1,16 +1,20 @@
-package cz.sspbrno.main;
+package cz.sspbrno.main.staff;
 
 import cz.sspbrno.main.interfaces.ReadableContent;
+import cz.sspbrno.main.interfaces.Day;
 import cz.sspbrno.main.interfaces.Economical;
 import cz.sspbrno.main.interfaces.Genre;
-import cz.sspbrno.main.staff.ShopAssistent;
 
 import java.util.ArrayList;
 
-public class Store implements Economical {
-    private int soldBooks;
-    private ArrayList<ReadableContent> owned;
-    private ShopAssistent salesman;
+public class ShopAssistent extends Person implements Economical {
+
+    private int id;
+    private Day[] workDays;
+
+    public ShopAssistent(){
+        super();
+    }
 
     @Override
     public ArrayList<ReadableContent> buyByGenre(Genre genre) {

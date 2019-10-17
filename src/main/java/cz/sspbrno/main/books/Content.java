@@ -1,14 +1,13 @@
 package cz.sspbrno.main.books;
 
-import cz.sspbrno.main.interfaces.BookInterface;
 import cz.sspbrno.main.interfaces.Genre;
 
-public abstract class Content implements BookInterface {
+public abstract class Content {
     private String name;
-    private String publisher;
     private Genre genre;
 
-    public Content(){
-
+    public Content(String name, Genre genre){
+        this.name = name;
+        this.genre = genre;
     }
 }
