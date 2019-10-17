@@ -1,11 +1,11 @@
 package cz.sspbrno.main.interfaces;
 
+import cz.sspbrno.main.books.Content;
+
 import java.util.ArrayList;
 
 public interface Economical {
-    ArrayList<ReadableContent> buyByGenre(Genre genre);
+    ArrayList<Content> buyByGenre(Genre genre);
 
-    ReadableContent buyByName(String name);
-
-    int sell(ReadableContent book);
+    Content butByName(String name);
 }

@@ -12,8 +12,8 @@ public class Book extends Content implements ReadableContent {
     private int pages;
     private Author author;
 
-    public Book(String name, Genre genre, int pages, Author author, boolean electronic){
-        super(name, genre);
+    public Book(String name, Genre genre, int price, int pages, Author author, boolean electronic){
+        super(name, genre, price);
         this.pages = pages;
         this.author = author;
         this.electronic = electronic;
@@ -22,10 +22,5 @@ public class Book extends Content implements ReadableContent {
     @Override
     public Date read(Date day) {
         return null;
-    }
-
-    @Override
-    public int price() {
-        return 0;
     }
 }

@@ -12,8 +12,20 @@ public class ShopAssistent extends Person implements Economical {
     private int id;
     private Day[] workDays;
 
-    public ShopAssistent(){
+    public ShopAssistent(int id, Day[] workDays){
         super();
+        this.id = id;
+        this.workDays = workDays;
+    }
+
+    @Override
+    public void makeMoney(int money) {
+
+    }
+
+    @Override
+    public void spendMoney(int money) {
+
     }
 
     @Override

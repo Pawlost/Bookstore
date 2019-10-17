@@ -14,14 +14,4 @@ public class Magazine extends Book implements ReadableContent {
     public Magazine(String name,Genre genre, int pages, Author author, boolean electronic) {
         super(name, genre, pages, author, electronic);
     }
-
-    @Override
-    public  Content releaseRandom(Market market) {
-        return null;
-    }
-
-    @Override
-    public Content releaseContent(String name, Genre genre) {
-        return null;
-    }
 }

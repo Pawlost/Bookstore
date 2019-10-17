@@ -2,11 +2,12 @@ package cz.sspbrno.main.staff;
 
 import cz.sspbrno.main.Data;
 import cz.sspbrno.main.books.Content;
+import cz.sspbrno.main.interfaces.Economical;
+import cz.sspbrno.main.interfaces.Genre;
 
 import java.util.ArrayList;
 
-public class Customer extends Person {
-    private int money;
+public class Customer extends Person implements Economical {
     private Discount type;
     private ArrayList<Content> boughtBooks;
 
@@ -21,5 +22,35 @@ public class Customer extends Person {
             type = Discount.Senior;
         }
         System.out.println(boughtBooks.size());
+    }
+
+    @Override
+    public void makeMoney(int money) {
+
+    }
+
+    @Override
+    public void spendMoney(int money) {
+
+    }
+
+    @Override
+    public ArrayList<Content> buyByGenre(Genre genre) {
+        return null;
+    }
+
+    @Override
+    public Content butByName(String name) {
+        return null;
+    }
+
+    @Override
+    public Content buyByName(String name) {
+        return null;
+    }
+
+    @Override
+    public int sell(Content book) {
+        return 0;
     }
 }

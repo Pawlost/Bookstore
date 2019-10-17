@@ -4,5 +4,4 @@ import java.util.Date;
 
 public interface ReadableContent {
     Date read(Date day);
-    int price();
 }

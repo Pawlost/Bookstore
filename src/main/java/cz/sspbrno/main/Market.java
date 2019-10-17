@@ -2,51 +2,36 @@ package cz.sspbrno.main;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import cz.sspbrno.main.interfaces.ReadableContent;
-import cz.sspbrno.main.interfaces.Economical;
+import cz.sspbrno.main.books.Content;
 import cz.sspbrno.main.interfaces.Genre;
 import cz.sspbrno.main.staff.Author;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Market implements Economical {
-    private Multimap<Genre, ReadableContent> booksByGenre;
-    private HashMap<String, ReadableContent> booksByName;
+public class Market {
+    private Multimap<Genre, Content> booksByGenre;
+    private HashMap<String, Content> booksByName;
     private ArrayList<Author> authors;
+    public static final int GLOBAL_MONEY = 300000;
+    public int marketMoney = GLOBAL_MONEY;
 
-    public Market() {
+    Market() {
         booksByName = new HashMap<>();
         authors = new ArrayList<>();
         booksByGenre = HashMultimap.create();
 
-        for(int a = 0; a < Data.MAX_AUTHORS; a++){
-            addAuthor();
-        }
+        addAuthor("Pawel", "Baldakus", 10);
+        addAuthor("Jane", "Bubla", 99);
     }
 
-    private void addAuthor(){
-        Author author = new Author("Pawel", "Baldakus", 10);
+    private void addAuthor(String firstName, String lastName, int age) {
+        Author author = new Author(firstName, lastName, age);
         authors.add(author);
         author.releaseRandomBook(this);
     }
 
-    public boolean isBookOnMarket(String name){
+    public boolean isBookOnMarket(String name) {
         return booksByName.containsKey(name);
-    }
-
-    @Override
-    public ArrayList<ReadableContent> buyByGenre(Genre genre) {
-        return null;
-    }
-
-    @Override
-    public ReadableContent buyByName(String name) {
-        return null;
-    }
-
-    @Override
-    public int sell(ReadableContent book) {
-        return 0;
     }
 }
