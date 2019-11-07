@@ -2,3 +2,7 @@
 /.vscode/
 /.idea/
 /.gradle/
+*.iml
+/.settings/
+*.project
+*.classpath
