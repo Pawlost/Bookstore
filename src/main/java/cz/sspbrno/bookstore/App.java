@@ -6,6 +6,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -16,9 +18,13 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = new FXMLLoader(getClass().getClassLoader().getResource("store.fxml")).load();
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+   
+        StackPane root = new StackPane();
+        root.getChildren().add(new FXMLLoader(getClass().getClassLoader().getResource("store.fxml")).load());
+        Scene scene = new Scene(root, 600, 400);
+
+        primaryStage.setTitle("Knihovna");
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 }
