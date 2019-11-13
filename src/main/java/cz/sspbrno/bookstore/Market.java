@@ -16,13 +16,10 @@ public class Market implements BookHandler {
     private ArrayList<Author> authors;
     public int marketMoney = 3000000;
 
-    Market() {
+    public Market() {
         booksByName = new HashMap<>();
         authors = new ArrayList<>();
         booksByGenre = HashMultimap.create();
-
-        addAuthor("Pawel", "Baldakus", 10);
-        addAuthor("Jane", "Bubla", 99);
     }
 
     private void addAuthor(String firstName, String lastName, int age) {

@@ -18,9 +18,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-   
-        StackPane root = new StackPane();
-        root.getChildren().add(new FXMLLoader(getClass().getClassLoader().getResource("store.fxml")).load());
+
+        Parent root  = new FXMLLoader(getClass().getClassLoader().getResource("store.fxml")).load();
         Scene scene = new Scene(root, 600, 400);
 
         primaryStage.setTitle("Knihovna");

@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<GridPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"
+   fx:controller="cz.sspbrno.bookstore.controllers.Store">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -31,17 +32,46 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="budget" text="Budget" GridPane.columnIndex="2">
+      <Label fx:id="budget" GridPane.columnIndex="2">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="buy" alignment="CENTER" mnemonicParsing="false" prefHeight="39.0" prefWidth="213.0" text="Koupit" GridPane.rowIndex="1">
+      <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Koupit" GridPane.rowIndex="1">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+       <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Další den" onAction="#nextDay" GridPane.rowIndex="2">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label text="Datum: " GridPane.columnIndex="2" GridPane.rowIndex="1">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+        <Label fx:id="dateLabel" GridPane.columnIndex="3" GridPane.rowIndex="1">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+        <Label text="Den: " GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+        <Label fx:id="dayLabel" GridPane.columnIndex="3" GridPane.rowIndex="2">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label text="Zákazníci:" GridPane.columnIndex="3" GridPane.rowIndex="3">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
    </children>
 </GridPane>

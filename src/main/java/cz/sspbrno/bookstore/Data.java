@@ -13,4 +13,6 @@ public class Data {
     public static final int MAX_BOOK_PAGES = 800;
     public static final String[] FIRST_NAMES = new String[]{"Lukáš","Václav", "Petr", "Juraj", "Luboš", "Lodivod"};
     public static final String[] LAST_NAMES = new String[]{"Jakubík","Košťál", "Novotný", "Sasko", "Hanák", "Caha"};
+    public static final String[] BOOKS = new String[]{"Harry Potter", "Hunget Games", 
+    "Metro 2033", "Hobit", "1984", "Šifra Mistra Leonarda", "Malý Princ", "Pes Baskervilský"};
 }
