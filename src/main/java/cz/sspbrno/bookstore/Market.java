@@ -22,8 +22,8 @@ public class Market implements BookHandler {
         booksByGenre = HashMultimap.create();
     }
 
-    private void addAuthor(String firstName, String lastName, int age) {
-        Author author = new Author(firstName, lastName, age);
+    private void addAuthor(String firstName, String lastName, int age, int money) {
+        Author author = new Author(firstName, lastName, age, money);
         authors.add(author);
         author.releaseRandomBook(this);
     }

@@ -7,11 +7,11 @@ import cz.sspbrno.bookstore.books.Content;
 import cz.sspbrno.bookstore.interfaces.Genre;
 
 public class Author extends Person {
-    private int releaseBooks = 0;
+    private int releasedBooks = 0;
     public static final String[] BOOK_NAMES = new String[]{"HA","HHH", "HMMMM", "HCH"};
 
-    public Author(String firstName, String lastName, int age){
-        super(firstName, lastName, age);
+    public Author(String firstName, String lastName, int age, int money){
+        super(firstName, lastName, age, money);
     }
 
     @Override
@@ -42,4 +42,22 @@ public class Author extends Person {
     public boolean decide() {
         return false;
     }
+
+	@Override
+	public void interact() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateText() {
+		// TODO Auto-generated method stub
+		
+	}
 }

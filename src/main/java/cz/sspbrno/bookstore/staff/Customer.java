@@ -9,11 +9,12 @@ import java.util.ArrayList;
 
 public class Customer extends Person implements BookHandler {
     private Discount type;
-    private ArrayList<Content> boughtBooks;
+    private Content wantedBook;
 
     public Customer() {
+        super();
         money = random.nextInt(Data.MAX_MONEY_AMOUNT - Data.MIN_MONEY_AMOUNT) + Data.MIN_MONEY_AMOUNT;
-        boughtBooks = new ArrayList<>(random.nextInt(Data.WANTED_BOOKS));
+       // wantedBook = random.nextInt();
         if (age < 20) {
             type = Discount.Student;
         } else if (age > 60) {
@@ -21,8 +22,19 @@ public class Customer extends Person implements BookHandler {
         } else {
             type = Discount.Senior;
         }
-        System.out.println(boughtBooks.size());
     }
+
+    @Override
+    public String toString() {
+        return "Jméno: " + firstName +" "+lastName +", věk: "+age +" peníze: " + money+"\n tato osoba chce: " +
+        /*wantedBook.toString() + */" knihu";
+    }
+
+    @Override
+    public void interact() {
+        
+    }
+
 
     @Override
     public void makeMoney(int money) {
@@ -48,4 +60,5 @@ public class Customer extends Person implements BookHandler {
     public boolean decide() {
         return false;
     }
+
 }
