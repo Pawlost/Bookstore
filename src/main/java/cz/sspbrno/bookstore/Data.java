@@ -11,6 +11,8 @@ public class Data {
     public static final int MIN_SELL_VALUE = 100;
     public static final int MAX_SELL_VALUE = 1000;
     public static final int MAX_BOOK_PAGES = 800;
+    public static final int STARTING_MONEY = 10000;
+
     public static final String[] FIRST_NAMES = new String[]{"Lukáš","Václav", "Petr", "Juraj", "Luboš", "Lodivod", "Roman", "Dominidik",
     "David", "Kuba", "Tomáš", "Filip", "Marek", "Opat", "Richard"};
     public static final String[] LAST_NAMES = new String[]{"Jakubík","Košťál", "Novotný", "Sasko", "Hanák", "Caha", "Dvořák",

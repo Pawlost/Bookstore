@@ -35,10 +35,14 @@ public class Store {
 
     @FXML
     private GridPane mainPane;
+
+    @FXML
+    private Label budgetLabel;
     
     private GridPane storePane;
     private GridPane marketPane;
 
+    private int budget = Data.STARTING_MONEY;
     private Market market;
     private ScrollPane customersPane;
     private BookHandler[] handlers;
@@ -150,6 +154,8 @@ public class Store {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         dayLabel.setText(currentDay.name);
         dateLabel.setText(formatter.format(calendar.getTime()));
+        budgetLabel.setText(budget+" Kč");
+
         GridPane pane = new GridPane();
 
         for(int i = 0; i < customers.size(); i++){
