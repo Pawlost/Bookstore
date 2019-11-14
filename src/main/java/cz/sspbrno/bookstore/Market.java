@@ -25,16 +25,22 @@ public class Market implements BookHandler {
         authors = new ArrayList<>();
         booksByGenre = HashMultimap.create();
 
-        Author author = new Author("John R.R.", "Tolkien", 60, 1500);
+        Author author = new Author("John R.R.", "Tolkien", 81, 1500);
         authors.add(author);
-         /*author = new Author("John R.R.", "Tolkien", 60, 1500);
+        author = new Author("Joanne K.", "Rowlingová", 54, 1500);
         authors.add(author);
-         author = new Author("John R.R.", "Tolkien", 60, 1500);
+        author = new Author("Erika¨L.", "James", 56, 1500);
         authors.add(author);
-         author = new Author("John R.R.", "Tolkien", 60, 1500);
+        author = new Author("Ernest", "Cline", 47, 1500);
         authors.add(author);
-         author = new Author("John R.R.", "Tolkien", 60, 1500);
-        authors.add(author);*/
+        author = new Author("Suzanne", "Collinsová", 57, 1500);
+        authors.add(author);
+        author = new Author("James", "Dashner", 46, 1500);
+        authors.add(author);
+        author = new Author("Alma", "Coinová", 54, 1500);
+        authors.add(author);
+        author = new Author("Karel", "Janeček", 46, 1500);
+        authors.add(author);
 
         for(String name : Data.BOOKS){
             Genre genre = Genre.values()[random.nextInt(Genre.values().length)];
