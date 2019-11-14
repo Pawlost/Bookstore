@@ -154,7 +154,7 @@ public class Store {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         dayLabel.setText(currentDay.name);
         dateLabel.setText(formatter.format(calendar.getTime()));
-        budgetLabel.setText(budget+" Kč");
+        budgetLabel.setText(" " + budget +" Kč");
 
         GridPane pane = new GridPane();
 

@@ -1,5 +1,7 @@
 package cz.sspbrno.bookstore.staff;
 
+import java.util.ArrayList;
+
 import cz.sspbrno.bookstore.Data;
 import cz.sspbrno.bookstore.Market;
 import cz.sspbrno.bookstore.books.Book;
@@ -7,7 +9,8 @@ import cz.sspbrno.bookstore.books.Content;
 import cz.sspbrno.bookstore.interfaces.Genre;
 
 public class Author extends Person {
-    private int releasedBooks = 0;
+
+    private ArrayList<Book> releasedBooks;
     public static final String[] BOOK_NAMES = new String[]{"HA","HHH", "HMMMM", "HCH"};
 
     public Author(String firstName, String lastName, int age, int money){
