@@ -26,38 +26,41 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="27.0" prefWidth="196.0" text="Budget:" GridPane.columnIndex="2">
+      <Label contentDisplay="RIGHT" prefHeight="27.0" prefWidth="378.0" text="                                                               Budget:" GridPane.columnIndex="2">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="budgetLabel" GridPane.columnIndex="2">
+      <Label fx:id="budgetLabel" GridPane.columnIndex="4">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label alignment="TOP_RIGHT" prefHeight="27.0" prefWidth="196.0" text="Datum: " GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <Label prefHeight="27.0" prefWidth="377.0" text="                                                               Datum: " GridPane.columnIndex="2" GridPane.rowIndex="1">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-        <Label fx:id="dateLabel" GridPane.columnIndex="3" GridPane.rowIndex="1">
+        <Label fx:id="dateLabel" GridPane.columnIndex="4" GridPane.rowIndex="1">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-        <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="196.0" text="Den: " GridPane.columnIndex="2" GridPane.rowIndex="2">
+        <Label prefHeight="27.0" prefWidth="375.0" text="                                                               Den: " GridPane.columnIndex="2" GridPane.rowIndex="2">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-        <Label fx:id="dayLabel" GridPane.columnIndex="3" GridPane.rowIndex="2">
+        <Label fx:id="dayLabel" GridPane.columnIndex="4" GridPane.rowIndex="2">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
     </children>
    <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
       <ColumnConstraints />
       <ColumnConstraints />
       <ColumnConstraints />
