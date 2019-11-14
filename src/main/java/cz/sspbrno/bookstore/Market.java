@@ -21,11 +21,13 @@ public class Market implements BookHandler {
     private Random random;
 
     public Market() {
+        random = new Random();
+        
         booksByName = new HashMap<>();
         authors = new ArrayList<>();
         booksByGenre = HashMultimap.create();
 
-        Author author = new Author("John R.R.", "Tolkien", 81, 1500);
+        Author author = new Author("John R.R.", "Tolkien", 60, 1500);
         authors.add(author);
         author = new Author("Joanne K.", "Rowlingová", 54, 1500);
         authors.add(author);
@@ -40,17 +42,16 @@ public class Market implements BookHandler {
         author = new Author("Alma", "Coinová", 54, 1500);
         authors.add(author);
         author = new Author("Karel", "Janeček", 46, 1500);
-        authors.add(author);
 
         for(String name : Data.BOOKS){
             Genre genre = Genre.values()[random.nextInt(Genre.values().length)];
             int price = random.nextInt(Data.MAX_MONEY_AMOUNT - Data.MIN_SELL_VALUE) + Data.MIN_SELL_VALUE;
             int pages = random.nextInt(Data.MAX_BOOK_PAGES - 1) + 1;
-            author = authors.get(random.nextInt(authors.size());
+           // author = authors.get(random.nextInt(authors.size());
 
             boolean electronic = random.nextBoolean();
 
-            Book book = new Book(name, genre, price, pages, author, electronic);
+            Book book = null;//new Book(name, genre, price, pages, author, electronic);
 
             booksByGenre.put(genre, book);
             booksByName.put(name, book);
