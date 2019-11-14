@@ -22,15 +22,11 @@ public class Market implements BookHandler {
 
     public Market() {
         random = new Random();
-        
+
         booksByName = new HashMap<>();
         authors = new ArrayList<>();
         booksByGenre = HashMultimap.create();
 
-<<<<<<< HEAD
-      //  Author author = new Author(firstName, lastName, age, money);
-        //authors.add(author);
-=======
         Author author = new Author("John R.R.", "Tolkien", 60, 1500);
         authors.add(author);
          /*author = new Author("John R.R.", "Tolkien", 60, 1500);
@@ -41,27 +37,22 @@ public class Market implements BookHandler {
         authors.add(author);
          author = new Author("John R.R.", "Tolkien", 60, 1500);
         authors.add(author);*/
->>>>>>> 877e9bdad3af225e12a83b5d2d01230f1ca11915
 
         for(String name : Data.BOOKS){
             Genre genre = Genre.values()[random.nextInt(Genre.values().length)];
             int price = random.nextInt(Data.MAX_MONEY_AMOUNT - Data.MIN_SELL_VALUE) + Data.MIN_SELL_VALUE;
             int pages = random.nextInt(Data.MAX_BOOK_PAGES - 1) + 1;
-           // author = authors.get(random.nextInt(authors.size());
+            author = authors.get(random.nextInt(authors.size()));
 
             boolean electronic = random.nextBoolean();
 
-            Book book = null;//new Book(name, genre, price, pages, author, electronic);
+            Book book = new Book(name, genre, price, pages, author, electronic);
+
+            author.addContent(book);
 
             booksByGenre.put(genre, book);
             booksByName.put(name, book);
         }
-    }
-
-    private void addAuthor(String firstName, String lastName, int age, int money) {
-        Author author = new Author(firstName, lastName, age, money);
-        authors.add(author);
-        author.releaseRandomBook(this);
     }
 
     public boolean isBookOnMarket(String name) {
@@ -80,5 +71,9 @@ public class Market implements BookHandler {
     @Override
     public Content getByName(String name) {
         return null;
+    }
+
+    public ArrayList<Author> getAuthors(){
+        return authors;
     }
 }

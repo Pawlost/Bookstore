@@ -10,7 +10,7 @@ import cz.sspbrno.bookstore.interfaces.Genre;
 
 public class Author extends Person {
 
-    private ArrayList<Book> releasedBooks;
+    private ArrayList<Content> releasedBooks;
     public static final String[] BOOK_NAMES = new String[]{"HA","HHH", "HMMMM", "HCH"};
 
     public Author(String firstName, String lastName, int age, int money){
@@ -37,8 +37,8 @@ public class Author extends Person {
         return null;
     }
 
-    public Content releaseBook(String name, Genre genre, int pages, int price) {
-        return new Book(name, genre, pages, price,this, random.nextBoolean());
+    public Content addContent(Content content) {
+        return content;
     }
 
     @Override

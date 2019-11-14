@@ -1,6 +1,7 @@
 package cz.sspbrno.bookstore.controllers;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,6 +10,7 @@ import java.util.Random;
 
 import cz.sspbrno.bookstore.Data;
 import cz.sspbrno.bookstore.Market;
+import cz.sspbrno.bookstore.books.Book;
 import cz.sspbrno.bookstore.interfaces.BookHandler;
 import cz.sspbrno.bookstore.interfaces.Day;
 import cz.sspbrno.bookstore.interfaces.Genre;
@@ -23,7 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 
-public class Store {
+public class Store implements Serializable {
     @FXML
     private Label dayLabel;
 
@@ -41,10 +43,13 @@ public class Store {
     
     private GridPane storePane;
     private GridPane marketPane;
+    private ScrollPane customersPane;
+    private ScrollPane bookSellPane;
+    private ScrollPane storeBooksPane;
 
     private int budget = Data.STARTING_MONEY;
+    private ArrayList<Book> storeBooks;
     private Market market;
-    private ScrollPane customersPane;
     private BookHandler[] handlers;
     private Day currentDay;
     private Calendar calendar;
@@ -95,6 +100,15 @@ public class Store {
 
     @FXML
     public void initialize() throws IOException {
+        storeBooks = new ArrayList<>();
+        calendar = Calendar.getInstance();
+        currentDay = dayFromDate(calendar.getTime());
+        customers = new ArrayList<>();
+        market = new Market();
+        random = new Random();
+
+        randomCustomers();
+
         marketPane = new FXMLLoader(getClass().getClassLoader().getResource("market.fxml")).load();
         storePane = new FXMLLoader(getClass().getClassLoader().getResource("store.fxml")).load();
 
@@ -131,14 +145,6 @@ public class Store {
         }
 
         changeScene(storePane);
-
-        calendar = Calendar.getInstance();
-        currentDay = dayFromDate(calendar.getTime());
-        customers = new ArrayList<>();
-        market = new Market();
-        random = new Random();
-
-        randomCustomers();
         
         updateLabels();
     }
