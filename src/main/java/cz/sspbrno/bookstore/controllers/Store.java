@@ -6,14 +6,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Random;
 
 import cz.sspbrno.bookstore.Data;
 import cz.sspbrno.bookstore.Market;
-import cz.sspbrno.bookstore.books.Book;
-import cz.sspbrno.bookstore.interfaces.BookHandler;
+import cz.sspbrno.bookstore.staff.*;
+import cz.sspbrno.bookstore.books.Content;
 import cz.sspbrno.bookstore.interfaces.Day;
-import cz.sspbrno.bookstore.interfaces.Genre;
 import cz.sspbrno.bookstore.staff.Customer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -44,13 +44,12 @@ public class Store implements Serializable {
     private GridPane storePane;
     private GridPane marketPane;
     private ScrollPane customersPane;
-    private ScrollPane bookSellPane;
+    private ScrollPane authorsPane;
     private ScrollPane storeBooksPane;
 
-    private int budget = Data.STARTING_MONEY;
-    private ArrayList<Book> storeBooks;
+    private int budget;
+    private HashMap<Content, Integer> storeBooks;
     private Market market;
-    private BookHandler[] handlers;
     private Day currentDay;
     private Calendar calendar;
     private ArrayList<Customer> customers;
@@ -60,7 +59,7 @@ public class Store implements Serializable {
     public void nextDay() {
         currentDay = chooseNextDay();
         calendar.add(Calendar.DAY_OF_WEEK, 1);
-        randomCustomers();
+        randomCustomers(market.getAllBooks());
         
         updateLabels();
     }
@@ -85,29 +84,17 @@ public class Store implements Serializable {
         return null;
     }
 
-    private void randomAction(Customer customer){
-        BookHandler handler = handlers[random.nextInt(1)];
-        customer.makeMoney(random.nextInt(market.getMarketMoney()));
-        switch (random.nextInt(1)){
-            case 0:
-                int genre  = random.nextInt(Genre.values().length);
-                handler.getByGenre(Genre.values()[genre]);
-                break;
-            case 1:
-                break;
-        }
-    }
-
     @FXML
     public void initialize() throws IOException {
-        storeBooks = new ArrayList<>();
+        storeBooks = new HashMap<>();
         calendar = Calendar.getInstance();
         currentDay = dayFromDate(calendar.getTime());
         customers = new ArrayList<>();
-        market = new Market();
+        market = new Market(this);
         random = new Random();
+        budget = Data.STARTING_MONEY;
 
-        randomCustomers();
+        randomCustomers(market.getAllBooks());
 
         marketPane = new FXMLLoader(getClass().getClassLoader().getResource("market.fxml")).load();
         storePane = new FXMLLoader(getClass().getClassLoader().getResource("store.fxml")).load();
@@ -123,6 +110,8 @@ public class Store implements Serializable {
                         title.setText("Obchod");
                     updateLabels();
                 }}); 
+            } else if(node.getId().equals("authors")){
+                authorsPane = (ScrollPane) node;
             }
             }
         }
@@ -140,6 +129,8 @@ public class Store implements Serializable {
                     }});
                 }else if(node.getId().equals("customersPane")){
                     customersPane = (ScrollPane)node;
+                }else if(node.getId().equals("bookPane")){
+                    storeBooksPane = (ScrollPane)node;
                 } 
             }
         }
@@ -149,10 +140,11 @@ public class Store implements Serializable {
         updateLabels();
     }
 
-    public void randomCustomers(){
+    public void randomCustomers(ArrayList<Content> allBooks){
         customers.clear();
         for (int c = 0; c < random.nextInt(Data.MAX_CUSTOMERS); c++) {
-            customers.add(new Customer());
+            int index = random.nextInt(allBooks.size());
+            customers.add(new Customer(allBooks.get(index), this));
         }
     }
 
@@ -167,8 +159,25 @@ public class Store implements Serializable {
         for(int i = 0; i < customers.size(); i++){
             pane.add(customers.get(i), 1, i);
         }
-        
+
         customersPane.setContent(pane);
+
+        pane = new GridPane();
+
+        for(int i = 0; i < market.getAuthors().size(); i++){
+            pane.add(market.getAuthors().get(i), 1, i);
+        }
+        
+        authorsPane.setContent(pane);
+
+        pane = new GridPane();
+
+        ArrayList<Content> books = new ArrayList<>(storeBooks.keySet());
+        for(int i = 0; i < books.size(); i++){
+            pane.add(books.get(i), 1, i);
+        }
+        
+        storeBooksPane.setContent(pane);
     }
 
     public Day dayFromDate(Date date){
@@ -202,5 +211,34 @@ public class Store implements Serializable {
         }
 
         mainPane.add(scene, 0, 10, 20, 20);
+    }
+
+    public void addBookToStore(Content content, Author author){
+        if(budget > content.price){
+        budget -= content.price;
+        author.makeMoney(content.price);
+        if(!storeBooks.keySet().contains(content)){
+            storeBooks.put(content, 1);
+        }else{
+            int count = storeBooks.get(content) + 1;
+            content.setCount(count);
+            storeBooks.put(content, count);
+        }
+        }
+        updateLabels();
+    }
+
+    public void buyBook(Content content, Customer customer){
+        if(storeBooks.keySet().contains(content)){
+            int count = storeBooks.get(content) - 1;
+            storeBooks.put(content, count);
+            budget += content.price;
+            customer.spendMoney(content.price);
+            if(storeBooks.get(content) == 0){
+                storeBooks.remove(content);
+            }
+            customers.remove(customer);
+            updateLabels();
+        }
     }
 }

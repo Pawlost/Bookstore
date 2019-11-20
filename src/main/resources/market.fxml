@@ -46,7 +46,7 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <ScrollPane id="bookSell" prefHeight="180.0" prefWidth="199.0" GridPane.columnIndex="17" GridPane.rowIndex="1" />
+      <ScrollPane id="authors" prefHeight="180.0" prefWidth="199.0" GridPane.columnIndex="17" GridPane.rowIndex="1" />
       <Button id="backButton" alignment="CENTER" mnemonicParsing="false" prefHeight="21.0" prefWidth="219.0" text="Zpět" GridPane.columnIndex="17" GridPane.rowIndex="2">
        <font>
             <Font size="18.0" />

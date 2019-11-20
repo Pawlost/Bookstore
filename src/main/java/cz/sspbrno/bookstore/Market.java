@@ -3,25 +3,28 @@ package cz.sspbrno.bookstore;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
+import cz.sspbrno.bookstore.controllers.*;
 import cz.sspbrno.bookstore.books.Book;
 import cz.sspbrno.bookstore.books.Content;
-import cz.sspbrno.bookstore.interfaces.BookHandler;
 import cz.sspbrno.bookstore.interfaces.Genre;
 import cz.sspbrno.bookstore.staff.Author;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class Market implements BookHandler {
+public class Market implements Serializable {
     private Multimap<Genre, Content> booksByGenre;
     private HashMap<String, Content> booksByName;
     private ArrayList<Author> authors;
     public int marketMoney = 3000000;
     private Random random;
+    private Store store;
 
-    public Market() {
+    public Market(Store store) {
         random = new Random();
+        this.store = store;
 
         booksByName = new HashMap<>();
         authors = new ArrayList<>();
@@ -42,6 +45,8 @@ public class Market implements BookHandler {
         author = new Author("Alma", "Coinová", 54, 1500);
         authors.add(author);
         author = new Author("Karel", "Janeček", 46, 1500);
+        authors.add(author);
+        updateStore();
 
         for(String name : Data.BOOKS){
             Genre genre = Genre.values()[random.nextInt(Genre.values().length)];
@@ -60,22 +65,22 @@ public class Market implements BookHandler {
         }
     }
 
+    public void updateStore(){
+        for(Author author : authors){
+            author.setStore(store);
+        }
+    }
+
+    public ArrayList<Content> getAllBooks(){
+        return new ArrayList<>(booksByName.values());
+    }
+
     public boolean isBookOnMarket(String name) {
         return booksByName.containsKey(name);
     }
 
     public int getMarketMoney() {
         return marketMoney;
-    }
-
-    @Override
-    public ArrayList<Content> getByGenre(Genre genre) {
-        return null;
-    }
-
-    @Override
-    public Content getByName(String name) {
-        return null;
     }
 
     public ArrayList<Author> getAuthors(){

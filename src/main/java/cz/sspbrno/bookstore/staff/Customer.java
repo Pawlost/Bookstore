@@ -4,17 +4,20 @@ import cz.sspbrno.bookstore.Data;
 import cz.sspbrno.bookstore.books.Content;
 import cz.sspbrno.bookstore.interfaces.BookHandler;
 import cz.sspbrno.bookstore.interfaces.Genre;
+import cz.sspbrno.bookstore.controllers.*;
 
 import java.util.ArrayList;
 
 public class Customer extends Person implements BookHandler {
     private Discount type;
     private Content wantedBook;
+    private Store store;
 
-    public Customer() {
+    public Customer(Content wantedBook, Store store) {
         super();
+        this.store = store;
+        this.wantedBook = wantedBook;
         money = random.nextInt(Data.MAX_MONEY_AMOUNT - Data.MIN_MONEY_AMOUNT) + Data.MIN_MONEY_AMOUNT;
-       // wantedBook = random.nextInt();
         if (age < 20) {
             type = Discount.Student;
         } else if (age > 60) {
@@ -22,17 +25,23 @@ public class Customer extends Person implements BookHandler {
         } else {
             type = Discount.Senior;
         }
+
+        this.setText(toString());
     }
 
     @Override
     public String toString() {
-        return "Jméno: " + firstName +" "+lastName +", věk: "+age +" peníze: " + money+"\n tato osoba chce: " +
-        /*wantedBook.toString() + */" knihu";
+        if(wantedBook == null){
+            return "Jméno: " + firstName +" "+lastName +", věk: "+age +" peníze: " + money;
+        }else {
+            return "Jméno: " + firstName +" "+lastName +", věk: "+age +" peníze: " + money+"\n tato osoba chce: " +
+             wantedBook.toString() + " knihu";
+        }
     }
 
     @Override
     public void interact() {
-        
+        store.buyBook(wantedBook, this);
     }
 
 
@@ -43,7 +52,7 @@ public class Customer extends Person implements BookHandler {
 
     @Override
     public void spendMoney(int money) {
-
+        
     }
 
     @Override
