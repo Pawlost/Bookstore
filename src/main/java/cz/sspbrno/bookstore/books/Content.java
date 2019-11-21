@@ -7,7 +7,7 @@ public abstract class Content {
     private Genre genre;
     private int price;
 
-    public Content(String name, Genre genre, int price){
+    public Content(String name, Genre genre, int price) {
         this.name = name;
         this.genre = genre;
         this.price = price;

@@ -3,7 +3,6 @@ package cz.sspbrno.bookstore.staff;
 import java.util.Random;
 
 import cz.sspbrno.bookstore.Data;
-import cz.sspbrno.bookstore.interfaces.Decide;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;

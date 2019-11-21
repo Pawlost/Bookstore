@@ -13,7 +13,7 @@ public class BoardGame extends Book {
         this.ageRestriction = ageRestriction;
     }
 
-    public void play(){
+    public void play() {
 
     }
 }

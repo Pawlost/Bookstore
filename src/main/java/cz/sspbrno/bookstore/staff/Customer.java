@@ -2,7 +2,6 @@ package cz.sspbrno.bookstore.staff;
 
 import cz.sspbrno.bookstore.Data;
 import cz.sspbrno.bookstore.books.Content;
-import cz.sspbrno.bookstore.interfaces.BookHandler;
 import cz.sspbrno.bookstore.interfaces.Genre;
 
 import java.util.ArrayList;

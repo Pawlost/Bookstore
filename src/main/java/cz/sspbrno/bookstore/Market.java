@@ -5,7 +5,6 @@ import com.google.common.collect.Multimap;
 
 import cz.sspbrno.bookstore.books.Book;
 import cz.sspbrno.bookstore.books.Content;
-import cz.sspbrno.bookstore.interfaces.BookHandler;
 import cz.sspbrno.bookstore.interfaces.Genre;
 import cz.sspbrno.bookstore.staff.Author;
 
@@ -43,7 +42,7 @@ public class Market implements BookHandler {
         authors.add(author);
         author = new Author("Karel", "Janeček", 46, 1500);
 
-        for(String name : Data.BOOKS){
+        for (String name : Data.BOOKS) {
             Genre genre = Genre.values()[random.nextInt(Genre.values().length)];
             int price = random.nextInt(Data.MAX_MONEY_AMOUNT - Data.MIN_SELL_VALUE) + Data.MIN_SELL_VALUE;
             int pages = random.nextInt(Data.MAX_BOOK_PAGES - 1) + 1;
@@ -78,7 +77,7 @@ public class Market implements BookHandler {
         return null;
     }
 
-    public ArrayList<Author> getAuthors(){
+    public ArrayList<Author> getAuthors() {
         return authors;
     }
 }

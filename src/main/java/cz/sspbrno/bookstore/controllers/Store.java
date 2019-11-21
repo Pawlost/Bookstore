@@ -11,9 +11,7 @@ import java.util.Random;
 import cz.sspbrno.bookstore.Data;
 import cz.sspbrno.bookstore.Market;
 import cz.sspbrno.bookstore.books.Book;
-import cz.sspbrno.bookstore.interfaces.BookHandler;
 import cz.sspbrno.bookstore.interfaces.Day;
-import cz.sspbrno.bookstore.interfaces.Genre;
 import cz.sspbrno.bookstore.staff.Customer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -40,7 +38,7 @@ public class Store implements Serializable {
 
     @FXML
     private Label budgetLabel;
-    
+
     private GridPane storePane;
     private GridPane marketPane;
     private ScrollPane customersPane;
@@ -50,7 +48,6 @@ public class Store implements Serializable {
     private int budget = Data.STARTING_MONEY;
     private ArrayList<Book> storeBooks;
     private Market market;
-    private BookHandler[] handlers;
     private Day currentDay;
     private Calendar calendar;
     private ArrayList<Customer> customers;
@@ -61,7 +58,7 @@ public class Store implements Serializable {
         currentDay = chooseNextDay();
         calendar.add(Calendar.DAY_OF_WEEK, 1);
         randomCustomers();
-        
+
         updateLabels();
     }
 
@@ -85,19 +82,6 @@ public class Store implements Serializable {
         return null;
     }
 
-    private void randomAction(Customer customer){
-        BookHandler handler = handlers[random.nextInt(1)];
-        customer.makeMoney(random.nextInt(market.getMarketMoney()));
-        switch (random.nextInt(1)){
-            case 0:
-                int genre  = random.nextInt(Genre.values().length);
-                handler.getByGenre(Genre.values()[genre]);
-                break;
-            case 1:
-                break;
-        }
-    }
-
     @FXML
     public void initialize() throws IOException {
         storeBooks = new ArrayList<>();
@@ -112,67 +96,82 @@ public class Store implements Serializable {
         marketPane = new FXMLLoader(getClass().getClassLoader().getResource("market.fxml")).load();
         storePane = new FXMLLoader(getClass().getClassLoader().getResource("store.fxml")).load();
 
-        for(Node node : marketPane.getChildren()){
-            if(node.getId() != null){
-            if(node.getId().equals("backButton")){
-                Button b = ((Button) node);
-                b.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent e) {
-                        changeScene(storePane);
-                        title.setText("Obchod");
-                    updateLabels();
-                }}); 
-            }
+        for (Node node : marketPane.getChildren()) {
+            if (node.getId() != null) {
+                if (node.getId().equals("backButton")) {
+                    Button b = ((Button) node);
+                    b.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent e) {
+                            changeScene(storePane);
+                            title.setText("Obchod");
+                            updateLabels();
+                        }
+                    });
+                }
             }
         }
 
-        for(Node node : storePane.getChildren()){
-            if(node.getId() != null){
-                if(node.getId().equals("buyButton")){
+        for (Node node : storePane.getChildren()) {
+            if (node.getId() != null) {
+                if (node.getId().equals("buyButton")) {
                     Button b = ((Button) node);
                     b.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent e) {
-                        changeScene(marketPane);
-                        title.setText("Trh");
-                        updateLabels();
-                    }});
-                }else if(node.getId().equals("customersPane")){
-                    customersPane = (ScrollPane)node;
-                } 
+                        @Override
+                        public void handle(ActionEvent e) {
+                            changeScene(marketPane);
+                            title.setText("Trh");
+                            updateLabels();
+                        }
+                    });
+                } else if (node.getId().equals("customersPane")) {
+                    customersPane = (ScrollPane) node;
+                }
             }
         }
 
         changeScene(storePane);
-        
+
         updateLabels();
     }
 
-    public void randomCustomers(){
+    public void randomCustomers() {
         customers.clear();
         for (int c = 0; c < random.nextInt(Data.MAX_CUSTOMERS); c++) {
             customers.add(new Customer());
         }
     }
 
-    public void updateLabels(){
+    @FXML
+    public void updateDate() throws InterruptedException {
+        Thread thread1 = new Thread();
+        thread1.start();
+        for (int i = 0; i < 1; i++) {
+            thread1.sleep(1000);
+            calendar = Calendar.getInstance();
+            currentDay = dayFromDate(calendar.getTime());
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            dateLabel.setText(formatter.format(calendar.getTime()));
+        }
+    }
+
+    public void updateLabels() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         dayLabel.setText(currentDay.name);
         dateLabel.setText(formatter.format(calendar.getTime()));
-        budgetLabel.setText(" " + budget +" Kč");
+        budgetLabel.setText(" " + budget + " Kč");
 
         GridPane pane = new GridPane();
 
-        for(int i = 0; i < customers.size(); i++){
+        for (int i = 0; i < customers.size(); i++) {
             pane.add(customers.get(i), 1, i);
         }
-        
+
         customersPane.setContent(pane);
     }
 
-    public Day dayFromDate(Date date){
-        switch(date.getDay()){
+    public Day dayFromDate(Date date) {
+        switch (date.getDay()) {
             case 0:
                 return Day.NEDELE;
             case 1:
@@ -192,11 +191,11 @@ public class Store implements Serializable {
     }
 
 
-    public void changeScene(Node scene){  
+    public void changeScene(Node scene) {
         ArrayList<Node> nodes = new ArrayList<>();
         nodes.addAll(mainPane.getChildren());
-        for(Node node : nodes){
-            if(node.getId() != null && node.getId().equals(scene.getId())){
+        for (Node node : nodes) {
+            if (node.getId() != null && node.getId().equals(scene.getId())) {
                 mainPane.getChildren().remove(node);
             }
         }
