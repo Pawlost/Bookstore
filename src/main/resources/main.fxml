@@ -26,7 +26,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Label contentDisplay="RIGHT" prefHeight="27.0" prefWidth="378.0" text="                                                               Budget:" GridPane.columnIndex="2">
+      <Label alignment="TOP_RIGHT" contentDisplay="LEFT" prefHeight="30.0" prefWidth="400.0" text="Peníze:" GridPane.columnIndex="2">
          <font>
             <Font size="18.0" />
          </font>
@@ -36,7 +36,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label prefHeight="27.0" prefWidth="377.0" text="                                                               Datum: " GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <Label alignment="TOP_RIGHT" prefHeight="27.0" prefWidth="377.0" text="Datum: " GridPane.columnIndex="2" GridPane.rowIndex="1">
          <font>
             <Font size="18.0" />
          </font>
@@ -46,7 +46,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-        <Label prefHeight="27.0" prefWidth="375.0" text="                                                               Den: " GridPane.columnIndex="2" GridPane.rowIndex="2">
+        <Label alignment="TOP_RIGHT" prefHeight="27.0" prefWidth="375.0" text="Den: " GridPane.columnIndex="2" GridPane.rowIndex="2">
          <font>
             <Font size="18.0" />
          </font>
@@ -57,18 +57,4 @@
          </font>
       </Label>
     </children>
-   <columnConstraints>
-      <ColumnConstraints />
-      <ColumnConstraints />
-      <ColumnConstraints />
-      <ColumnConstraints />
-      <ColumnConstraints />
-      <ColumnConstraints />
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
 </GridPane>

@@ -20,10 +20,15 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
+import cz.sspbrno.bookstore.*;
+
 
 public class Store implements Serializable {
     @FXML
@@ -46,6 +51,7 @@ public class Store implements Serializable {
     private ScrollPane customersPane;
     private ScrollPane authorsPane;
     private ScrollPane storeBooksPane;
+    private ScrollPane sortedBooks;
 
     private int budget;
     private HashMap<Content, Integer> storeBooks;
@@ -99,7 +105,7 @@ public class Store implements Serializable {
         marketPane = new FXMLLoader(getClass().getClassLoader().getResource("market.fxml")).load();
         storePane = new FXMLLoader(getClass().getClassLoader().getResource("store.fxml")).load();
 
-        for(Node node : marketPane.getChildren()){
+      for(Node node : marketPane.getChildren()){
             if(node.getId() != null){
             if(node.getId().equals("backButton")){
                 Button b = ((Button) node);
@@ -112,6 +118,8 @@ public class Store implements Serializable {
                 }}); 
             } else if(node.getId().equals("authors")){
                 authorsPane = (ScrollPane) node;
+            }else if(node.getId().equals("sortedBooks")){
+                sortedBooks = (ScrollPane) node;
             }
             }
         }
@@ -144,12 +152,14 @@ public class Store implements Serializable {
         customers.clear();
         for (int c = 0; c < random.nextInt(Data.MAX_CUSTOMERS); c++) {
             int index = random.nextInt(allBooks.size());
-            customers.add(new Customer(allBooks.get(index), this));
+            Customer customer = new Customer(allBooks.get(index));
+            customer.setStore(this);
+            customers.add(customer);
         }
     }
 
     public void updateLabels(){
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         dayLabel.setText(currentDay.name);
         dateLabel.setText(formatter.format(calendar.getTime()));
         budgetLabel.setText(" " + budget +" Kč");
@@ -174,10 +184,20 @@ public class Store implements Serializable {
 
         ArrayList<Content> books = new ArrayList<>(storeBooks.keySet());
         for(int i = 0; i < books.size(); i++){
-            pane.add(books.get(i), 1, i);
+            books.get(i).removeParent();
+            pane.add(books.get(i).clone(), 1, i);
         }
         
         storeBooksPane.setContent(pane);
+
+        pane = new GridPane();
+
+        for(int i = 0; i < market.getAllBooks().size(); i++){
+            market.getAllBooks().get(i).setStore(this);
+            pane.add(market.getAllBooks().get(i), 1, i);
+        }
+        
+        sortedBooks.setContent(pane);
     }
 
     public Day dayFromDate(Date date){
@@ -211,34 +231,71 @@ public class Store implements Serializable {
         }
 
         mainPane.add(scene, 0, 10, 20, 20);
-    }
-
-    public void addBookToStore(Content content, Author author){
-        if(budget > content.price){
-        budget -= content.price;
-        author.makeMoney(content.price);
-        if(!storeBooks.keySet().contains(content)){
-            storeBooks.put(content, 1);
-        }else{
-            int count = storeBooks.get(content) + 1;
-            content.setCount(count);
-            storeBooks.put(content, count);
-        }
-        }
         updateLabels();
     }
 
-    public void buyBook(Content content, Customer customer){
-        if(storeBooks.keySet().contains(content)){
-            int count = storeBooks.get(content) - 1;
-            storeBooks.put(content, count);
-            budget += content.price;
-            customer.spendMoney(content.price);
-            if(storeBooks.get(content) == 0){
-                storeBooks.remove(content);
+    public void addBookToStore(Content content, Person author){
+        if(budget > content.price){
+            budget -= content.price;
+            author.makeMoney(content.price);
+            if(!storeBooks.keySet().contains(content)){
+                storeBooks.put(content, 1);
+            }else{
+                int count = storeBooks.get(content) + 1;
+                content.setCount(count);
+                storeBooks.put(content, count);
             }
-            customers.remove(customer);
             updateLabels();
+        }else{
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Nedostatek peněz");
+            alert.setHeaderText("Nemáš dost peněz na nakoupení knihy");
+            alert.showAndWait();
+         }
+    }
+
+    public void buyBook(Content content, Customer customer){
+        if(storeBooks.keySet().contains(content) && customer.getMoney() > content.price + 100){
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Prodat knihu");
+            alert.setHeaderText(content.toString());
+            alert.setContentText("Opravdu chceš prodat tuto knihu " + customer.toString() + " ?");
+
+            java.util.Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                int count = storeBooks.get(content) - 1;
+                storeBooks.put(content, count);
+                budget += content.price + 100;
+                customer.spendMoney(content.price + 100);
+                if(storeBooks.get(content) == 0){
+                    storeBooks.remove(content);
+                }
+                customers.remove(customer);
+                updateLabels();
+            }
+        }else{
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Nelze prodat knihu");
+            alert.setHeaderText("Kniha není na skladě, anebo zákaznik nemá dost peněz");
+            alert.showAndWait();
+         }
+    }
+
+    public void exitApplication() {
+        ArrayList<Serializable> array = new ArrayList<>();
+
+        for(Author author : market.getAuthors()){
+            author.removeParent();
+            array.add(author);
         }
+        Serialization.serialize(Data.AUTHORS_PATH, array);
+        array.clear();
+
+        for(Content book : market.getAllBooks()){
+            book.removeParent();
+            array.add(book);
+        }
+        Serialization.serialize(Data.BOOKS_PATH, array);
+        array.clear();
     }
 }

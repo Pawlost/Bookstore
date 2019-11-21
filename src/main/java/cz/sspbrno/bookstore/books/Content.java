@@ -1,9 +1,16 @@
 package cz.sspbrno.bookstore.books;
 
-import cz.sspbrno.bookstore.interfaces.Genre;
-import javafx.scene.control.Label;
+import java.io.Serializable;
 
-public abstract class Content extends Label{
+import cz.sspbrno.bookstore.controllers.Store;
+import cz.sspbrno.bookstore.interfaces.Genre;
+import cz.sspbrno.bookstore.interfaces.Interactable;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+
+public abstract class Content extends Button implements Interactable, Serializable, Cloneable{
     public final String name;
     public final Genre genre;
     public final int price;
@@ -15,6 +22,14 @@ public abstract class Content extends Label{
         this.genre = genre;
         this.price = price;
         this.setText(toString());
+
+        this.setOnAction(new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle(ActionEvent e) {
+               interact();
+               updateText();
+            }
+        }); 
     }
 
     public String toString(){
@@ -29,5 +44,23 @@ public abstract class Content extends Label{
     public void setCount(int count){
         this.count = count;
         this.setText(toString());
+    }
+
+    @Override
+    public void updateText(){
+        this.setText(this.toString());
+    }    
+    
+    @Override
+    public abstract void interact();
+
+    @Override
+    public abstract void setStore(Store store);
+
+    @Override
+    public abstract Content clone();
+
+    public void removeParent(){
+        ((Pane)this.getParent()).getChildren().remove(this);
     }
 }

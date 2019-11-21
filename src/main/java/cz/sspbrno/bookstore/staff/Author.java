@@ -3,6 +3,7 @@ package cz.sspbrno.bookstore.staff;
 import cz.sspbrno.bookstore.controllers.*;
 import cz.sspbrno.bookstore.books.Content;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,8 +12,9 @@ import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.Pane;
 
-public class Author extends Person {
+public class Author extends Person implements Serializable {
 
     private Content currentContent;
     private Store store;
@@ -40,11 +42,6 @@ public class Author extends Person {
 
     public void addContent(Content content) {
         releasedBooks.put(content.toString(), content);
-    }
-
-    @Override
-    public boolean decide() {
-        return false;
     }
 
 	@Override
@@ -83,5 +80,9 @@ public class Author extends Person {
     
     public Content getCurrentContent(){
         return currentContent;
+    }
+
+    public void removeParent(){
+        ((Pane)this.getParent()).getChildren().remove(this);
     }
 }

@@ -3,12 +3,12 @@ package cz.sspbrno.bookstore.staff;
 import java.util.Random;
 
 import cz.sspbrno.bookstore.Data;
-import cz.sspbrno.bookstore.interfaces.Decide;
+import cz.sspbrno.bookstore.interfaces.Interactable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
-public abstract class Person extends Button implements Decide {
+public abstract class Person extends Button implements Interactable {
     String firstName;
     String lastName;
     int age;
@@ -49,6 +49,7 @@ public abstract class Person extends Button implements Decide {
         updateText(); 
     }
 
+    @Override
     public void updateText(){
         this.setText(this.toString());
     }
@@ -57,7 +58,13 @@ public abstract class Person extends Button implements Decide {
 
     public abstract void spendMoney(int money);
 
+    @Override
     public abstract void interact();
 
+    @Override
     public abstract String toString();
+
+    public int getMoney(){
+        return this.money;
+    }
 }

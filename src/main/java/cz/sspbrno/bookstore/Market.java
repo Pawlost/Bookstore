@@ -9,12 +9,11 @@ import cz.sspbrno.bookstore.books.Content;
 import cz.sspbrno.bookstore.interfaces.Genre;
 import cz.sspbrno.bookstore.staff.Author;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class Market implements Serializable {
+public class Market {
     private Multimap<Genre, Content> booksByGenre;
     private HashMap<String, Content> booksByName;
     private ArrayList<Author> authors;
@@ -56,7 +55,7 @@ public class Market implements Serializable {
 
             boolean electronic = random.nextBoolean();
 
-            Book book = new Book(name, genre, price, pages, author, electronic);
+            Book book = new Book(name, genre, price, pages, author, electronic, store);
 
             author.addContent(book);
 

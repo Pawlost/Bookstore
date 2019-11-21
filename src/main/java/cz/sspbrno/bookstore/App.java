@@ -1,5 +1,6 @@
 package cz.sspbrno.bookstore;
 
+import cz.sspbrno.bookstore.controllers.Store;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -16,11 +17,13 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
-        Parent root  = new FXMLLoader(getClass().getClassLoader().getResource("main.fxml")).load();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("main.fxml"));
+        Parent root  = loader.load();
         Scene scene = new Scene(root, 900, 600);
+        Store store = (Store)loader.getController();
 
         primaryStage.setOnCloseRequest((WindowEvent e) -> {
+            store.exitApplication();
             Platform.exit();
             System.exit(0);
         });

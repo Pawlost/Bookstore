@@ -1,6 +1,7 @@
 package cz.sspbrno.bookstore.staff;
 
 import cz.sspbrno.bookstore.books.Content;
+import cz.sspbrno.bookstore.controllers.Store;
 import cz.sspbrno.bookstore.interfaces.Day;
 import cz.sspbrno.bookstore.interfaces.BookHandler;
 import cz.sspbrno.bookstore.interfaces.Genre;
@@ -38,11 +39,6 @@ public class ShopAssistent extends Person implements BookHandler {
         return null;
     }
 
-    @Override
-    public boolean decide() {
-        return false;
-    }
-
 	@Override
 	public void interact() {
 		
@@ -55,6 +51,12 @@ public class ShopAssistent extends Person implements BookHandler {
 
 	@Override
 	public void updateText() {
+		
+	}
+
+	@Override
+	public void setStore(Store store) {
+		// TODO Auto-generated method stub
 		
 	}
 }

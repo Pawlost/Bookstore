@@ -8,7 +8,7 @@ public class BoardGame extends Book {
     private int ageRestriction;
 
     public BoardGame(String name, Genre genre, int price, int pages, Author author, boolean electronic, int players, int ageRestriction) {
-        super(name, genre, pages, price, author, electronic);
+        super(name, genre, pages, price, author, electronic, null);
         this.players = players;
         this.ageRestriction = ageRestriction;
     }

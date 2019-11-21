@@ -1,6 +1,9 @@
 package cz.sspbrno.bookstore;
 
 public class Data {
+
+    public static final String AUTHORS_PATH = "./Authors.txt";
+    public static final String BOOKS_PATH = "./Contents.txt";
     public static final int MAX_MONEY_AMOUNT = 5000;
     public static final int MIN_MONEY_AMOUNT = 100;
     public static final int WANTED_BOOKS = 2;

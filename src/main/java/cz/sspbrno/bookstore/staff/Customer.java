@@ -13,9 +13,8 @@ public class Customer extends Person implements BookHandler {
     private Content wantedBook;
     private Store store;
 
-    public Customer(Content wantedBook, Store store) {
+    public Customer(Content wantedBook) {
         super();
-        this.store = store;
         this.wantedBook = wantedBook;
         money = random.nextInt(Data.MAX_MONEY_AMOUNT - Data.MIN_MONEY_AMOUNT) + Data.MIN_MONEY_AMOUNT;
         if (age < 20) {
@@ -65,9 +64,8 @@ public class Customer extends Person implements BookHandler {
         return null;
     }
 
-    @Override
-    public boolean decide() {
-        return false;
-    }
-
+	@Override
+	public void setStore(Store store) {
+        this.store = store;
+	}
 }
