@@ -255,7 +255,7 @@ public class Store implements Serializable {
     }
 
     public void buyBook(Content content, Customer customer){
-        if(storeBooks.keySet().contains(content) && customer.getMoney() > content.price + 100){
+        if(storeBooks.keySet().contains(content) && customer.getMoney() > content.price){
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Prodat knihu");
             alert.setHeaderText(content.toString());
@@ -265,8 +265,8 @@ public class Store implements Serializable {
             if (result.get() == ButtonType.OK){
                 int count = storeBooks.get(content) - 1;
                 storeBooks.put(content, count);
-                budget += content.price + 100;
-                customer.spendMoney(content.price + 100);
+                budget += customer.getMoney();
+                customer.spendMoney(customer.getMoney());
                 if(storeBooks.get(content) == 0){
                     storeBooks.remove(content);
                 }
