@@ -12,7 +12,7 @@ public enum Day {
     public final String name;
     public final int index;
 
-    private Day(String name, int index){
+    private Day(String name, int index) {
         this.name = name;
         this.index = index;
     }

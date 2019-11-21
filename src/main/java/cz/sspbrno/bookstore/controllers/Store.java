@@ -45,7 +45,7 @@ public class Store implements Serializable {
 
     @FXML
     private Label budgetLabel;
-    
+
     private GridPane storePane;
     private GridPane marketPane;
     private ScrollPane customersPane;
@@ -66,7 +66,7 @@ public class Store implements Serializable {
         currentDay = chooseNextDay();
         calendar.add(Calendar.DAY_OF_WEEK, 1);
         randomCustomers(market.getAllBooks());
-        
+
         updateLabels();
     }
 
@@ -105,50 +105,52 @@ public class Store implements Serializable {
         marketPane = new FXMLLoader(getClass().getClassLoader().getResource("market.fxml")).load();
         storePane = new FXMLLoader(getClass().getClassLoader().getResource("store.fxml")).load();
 
-      for(Node node : marketPane.getChildren()){
-            if(node.getId() != null){
-            if(node.getId().equals("backButton")){
-                Button b = ((Button) node);
-                b.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent e) {
-                        changeScene(storePane);
-                        title.setText("Obchod");
-                    updateLabels();
-                }}); 
-            } else if(node.getId().equals("authors")){
-                authorsPane = (ScrollPane) node;
-            }else if(node.getId().equals("sortedBooks")){
-                sortedBooks = (ScrollPane) node;
-            }
+        for (Node node : marketPane.getChildren()) {
+            if (node.getId() != null) {
+                if (node.getId().equals("backButton")) {
+                    Button b = ((Button) node);
+                    b.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent e) {
+                            changeScene(storePane);
+                            title.setText("Obchod");
+                            updateLabels();
+                        }
+                    });
+                } else if (node.getId().equals("authors")) {
+                    authorsPane = (ScrollPane) node;
+                } else if (node.getId().equals("sortedBooks")) {
+                    sortedBooks = (ScrollPane) node;
+                }
             }
         }
 
-        for(Node node : storePane.getChildren()){
-            if(node.getId() != null){
-                if(node.getId().equals("buyButton")){
+        for (Node node : storePane.getChildren()) {
+            if (node.getId() != null) {
+                if (node.getId().equals("buyButton")) {
                     Button b = ((Button) node);
                     b.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent e) {
-                        changeScene(marketPane);
-                        title.setText("Trh");
-                        updateLabels();
-                    }});
-                }else if(node.getId().equals("customersPane")){
-                    customersPane = (ScrollPane)node;
-                }else if(node.getId().equals("bookPane")){
-                    storeBooksPane = (ScrollPane)node;
-                } 
+                        @Override
+                        public void handle(ActionEvent e) {
+                            changeScene(marketPane);
+                            title.setText("Trh");
+                            updateLabels();
+                        }
+                    });
+                } else if (node.getId().equals("customersPane")) {
+                    customersPane = (ScrollPane) node;
+                } else if (node.getId().equals("bookPane")) {
+                    storeBooksPane = (ScrollPane) node;
+                }
             }
         }
 
         changeScene(storePane);
-        
+
         updateLabels();
     }
 
-    public void randomCustomers(ArrayList<Content> allBooks){
+    public void randomCustomers(ArrayList<Content> allBooks) {
         customers.clear();
         for (int c = 0; c < random.nextInt(Data.MAX_CUSTOMERS); c++) {
             int index = random.nextInt(allBooks.size());
@@ -158,15 +160,15 @@ public class Store implements Serializable {
         }
     }
 
-    public void updateLabels(){
+    public void updateLabels() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         dayLabel.setText(currentDay.name);
         dateLabel.setText(formatter.format(calendar.getTime()));
-        budgetLabel.setText(" " + budget +" Kč");
+        budgetLabel.setText(" " + budget + " Kč");
 
         GridPane pane = new GridPane();
 
-        for(int i = 0; i < customers.size(); i++){
+        for (int i = 0; i < customers.size(); i++) {
             pane.add(customers.get(i), 1, i);
         }
 
@@ -174,34 +176,34 @@ public class Store implements Serializable {
 
         pane = new GridPane();
 
-        for(int i = 0; i < market.getAuthors().size(); i++){
+        for (int i = 0; i < market.getAuthors().size(); i++) {
             pane.add(market.getAuthors().get(i), 1, i);
         }
-        
+
         authorsPane.setContent(pane);
 
         pane = new GridPane();
 
         ArrayList<Content> books = new ArrayList<>(storeBooks.keySet());
-        for(int i = 0; i < books.size(); i++){
+        for (int i = 0; i < books.size(); i++) {
             books.get(i).removeParent();
             pane.add(books.get(i).clone(), 1, i);
         }
-        
+
         storeBooksPane.setContent(pane);
 
         pane = new GridPane();
 
-        for(int i = 0; i < market.getAllBooks().size(); i++){
+        for (int i = 0; i < market.getAllBooks().size(); i++) {
             market.getAllBooks().get(i).setStore(this);
             pane.add(market.getAllBooks().get(i), 1, i);
         }
-        
+
         sortedBooks.setContent(pane);
     }
 
-    public Day dayFromDate(Date date){
-        switch(date.getDay()){
+    public Day dayFromDate(Date date) {
+        switch (date.getDay()) {
             case 0:
                 return Day.NEDELE;
             case 1:
@@ -221,11 +223,11 @@ public class Store implements Serializable {
     }
 
 
-    public void changeScene(Node scene){  
+    public void changeScene(Node scene) {
         ArrayList<Node> nodes = new ArrayList<>();
         nodes.addAll(mainPane.getChildren());
-        for(Node node : nodes){
-            if(node.getId() != null && node.getId().equals(scene.getId())){
+        for (Node node : nodes) {
+            if (node.getId() != null && node.getId().equals(scene.getId())) {
                 mainPane.getChildren().remove(node);
             }
         }
@@ -234,64 +236,64 @@ public class Store implements Serializable {
         updateLabels();
     }
 
-    public void addBookToStore(Content content, Person author){
-        if(budget > content.price){
+    public void addBookToStore(Content content, Person author) {
+        if (budget > content.price) {
             budget -= content.price;
             author.makeMoney(content.price);
-            if(!storeBooks.keySet().contains(content)){
+            if (!storeBooks.keySet().contains(content)) {
                 storeBooks.put(content, 1);
-            }else{
+            } else {
                 int count = storeBooks.get(content) + 1;
                 content.setCount(count);
                 storeBooks.put(content, count);
             }
             updateLabels();
-        }else{
+        } else {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Nedostatek peněz");
             alert.setHeaderText("Nemáš dost peněz na nakoupení knihy");
             alert.showAndWait();
-         }
+        }
     }
 
-    public void buyBook(Content content, Customer customer){
-        if(storeBooks.keySet().contains(content) && customer.getMoney() > content.price){
+    public void buyBook(Content content, Customer customer) {
+        if (storeBooks.keySet().contains(content) && customer.getMoney() > content.price) {
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Prodat knihu");
             alert.setHeaderText(content.toString());
             alert.setContentText("Opravdu chceš prodat tuto knihu " + customer.toString() + " ?");
 
             java.util.Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK){
+            if (result.get() == ButtonType.OK) {
                 int count = storeBooks.get(content) - 1;
                 storeBooks.put(content, count);
                 budget += customer.getMoney();
                 customer.spendMoney(customer.getMoney());
-                if(storeBooks.get(content) == 0){
+                if (storeBooks.get(content) == 0) {
                     storeBooks.remove(content);
                 }
                 customers.remove(customer);
                 updateLabels();
             }
-        }else{
+        } else {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Nelze prodat knihu");
             alert.setHeaderText("Kniha není na skladě, anebo zákaznik nemá dost peněz");
             alert.showAndWait();
-         }
+        }
     }
 
     public void exitApplication() {
         ArrayList<Serializable> array = new ArrayList<>();
 
-        for(Author author : market.getAuthors()){
+        for (Author author : market.getAuthors()) {
             author.removeParent();
             array.add(author);
         }
         Serialization.serialize(Data.AUTHORS_PATH, array);
         array.clear();
 
-        for(Content book : market.getAllBooks()){
+        for (Content book : market.getAllBooks()) {
             book.removeParent();
             array.add(book);
         }

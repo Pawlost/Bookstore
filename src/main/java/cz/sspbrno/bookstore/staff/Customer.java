@@ -2,13 +2,12 @@ package cz.sspbrno.bookstore.staff;
 
 import cz.sspbrno.bookstore.Data;
 import cz.sspbrno.bookstore.books.Content;
-import cz.sspbrno.bookstore.interfaces.BookHandler;
 import cz.sspbrno.bookstore.interfaces.Genre;
 import cz.sspbrno.bookstore.controllers.*;
 
 import java.util.ArrayList;
 
-public class Customer extends Person implements BookHandler {
+public class Customer extends Person {
     private Discount type;
     private Content wantedBook;
     private Store store;
@@ -52,16 +51,6 @@ public class Customer extends Person implements BookHandler {
     @Override
     public void spendMoney(int money) {
         
-    }
-
-    @Override
-    public ArrayList<Content> getByGenre(Genre genre) {
-        return null;
-    }
-
-    @Override
-    public Content getByName(String name) {
-        return null;
     }
 
 	@Override

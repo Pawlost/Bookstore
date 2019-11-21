@@ -47,7 +47,7 @@ public class Market {
         authors.add(author);
         updateStore();
 
-        for(String name : Data.BOOKS){
+        for (String name : Data.BOOKS) {
             Genre genre = Genre.values()[random.nextInt(Genre.values().length)];
             int price = random.nextInt(Data.MAX_MONEY_AMOUNT - Data.MIN_SELL_VALUE) + Data.MIN_SELL_VALUE;
             int pages = random.nextInt(Data.MAX_BOOK_PAGES - 1) + 1;
@@ -64,13 +64,13 @@ public class Market {
         }
     }
 
-    public void updateStore(){
-        for(Author author : authors){
+    public void updateStore() {
+        for (Author author : authors) {
             author.setStore(store);
         }
     }
 
-    public ArrayList<Content> getAllBooks(){
+    public ArrayList<Content> getAllBooks() {
         return new ArrayList<>(booksByName.values());
     }
 
@@ -82,7 +82,7 @@ public class Market {
         return marketMoney;
     }
 
-    public ArrayList<Author> getAuthors(){
+    public ArrayList<Author> getAuthors() {
         return authors;
     }
 }

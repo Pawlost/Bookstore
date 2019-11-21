@@ -3,12 +3,11 @@ package cz.sspbrno.bookstore.staff;
 import cz.sspbrno.bookstore.books.Content;
 import cz.sspbrno.bookstore.controllers.Store;
 import cz.sspbrno.bookstore.interfaces.Day;
-import cz.sspbrno.bookstore.interfaces.BookHandler;
 import cz.sspbrno.bookstore.interfaces.Genre;
 
 import java.util.ArrayList;
 
-public class ShopAssistent extends Person implements BookHandler {
+public class ShopAssistent extends Person{
 
     private int id;
     private Day[] workDays;
@@ -28,17 +27,7 @@ public class ShopAssistent extends Person implements BookHandler {
     public void spendMoney(int money) {
 
     }
-
-    @Override
-    public ArrayList<Content> getByGenre(Genre genre) {
-        return null;
-    }
-
-    @Override
-    public Content getByName(String name) {
-        return null;
-    }
-
+    
 	@Override
 	public void interact() {
 		

@@ -16,11 +16,11 @@ public class App extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("main.fxml"));
-        Parent root  = loader.load();
+        Parent root = loader.load();
         Scene scene = new Scene(root, 900, 600);
-        Store store = (Store)loader.getController();
+        Store store = (Store) loader.getController();
 
         primaryStage.setOnCloseRequest((WindowEvent e) -> {
             store.exitApplication();
